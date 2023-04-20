@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/BashaiKuparKongwang/Nesac_tutorial.git/static/css/main.5208f98f.css",
+    "main.js": "/BashaiKuparKongwang/Nesac_tutorial.git/static/js/main.d8cf0b6e.js",
+    "static/js/787.1cf6868c.chunk.js": "/BashaiKuparKongwang/Nesac_tutorial.git/static/js/787.1cf6868c.chunk.js",
+    "index.html": "/BashaiKuparKongwang/Nesac_tutorial.git/index.html",
+    "main.5208f98f.css.map": "/BashaiKuparKongwang/Nesac_tutorial.git/static/css/main.5208f98f.css.map",
+    "main.d8cf0b6e.js.map": "/BashaiKuparKongwang/Nesac_tutorial.git/static/js/main.d8cf0b6e.js.map",
+    "787.1cf6868c.chunk.js.map": "/BashaiKuparKongwang/Nesac_tutorial.git/static/js/787.1cf6868c.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.5208f98f.css",
+    "static/js/main.d8cf0b6e.js"
+  ]
+}

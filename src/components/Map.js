@@ -3,7 +3,7 @@ import { MapContainer, TileLayer, WMSTileLayer } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css';
 
 const Map = () => {
-  const position = [51.505, -0.09];
+  const position = [25 ,92];
 
   return (
     <MapContainer center={[25 ,92]} zoom={7} scrollWheelZoom={true}>
@@ -14,10 +14,11 @@ const Map = () => {
 
       <WMSTileLayer
         url="http://localhost:8080/geoserver/ne/wms"
-        layers="ne%3Ameghalaya_district"
+        layers="meghalaya_district"
         format="image/png"
         transparent={true}
-        opacity={5}
+        opacity={0.6}
+        color="red"
       />
     </MapContainer>
   );

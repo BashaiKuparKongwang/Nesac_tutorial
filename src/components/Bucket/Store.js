@@ -1,26 +1,28 @@
-//store.js
-import { configureStore, combineReducers } from '@reduxjs/toolkit';
+import { configureStore } from '@reduxjs/toolkit';
+import { produce } from 'immer';
 
-
-const initialCheckboxState = {
-  selectedDistricts: [], //initially no districts are selected
+const initialState = {
+  selectedDistricts: [],
 };
 
-const checkboxReducer = (state = initialCheckboxState, action) => {
-  switch (action.type) {
-    case "SELECT_DISTRICT":
-      return {
-        ...state,
-        selectedDistricts: action.payload, // update the selected districts with the payload received
-      };
-    default:
-      return state;
-  }
+const rootReducer = (state = initialState, action) => {
+  return produce(state, (draft) => {
+    switch (action.type) {
+      case 'SELECTED_DISTRICTS':
+        const index = draft.selectedDistricts.indexOf(action.payload);
+        if (index === -1) {
+          //if item is check it will add to selectedDistricts
+        draft.selectedDistricts.push(action.payload);
+        } else { 
+          //if item is uncheck it will remove from selectedDistricts
+          draft.selectedDistricts.splice(index, 1);
+        }
+        break;
+      default:
+        break;
+    }
+  });
 };
-
-const rootReducer = combineReducers({
-  checkbox: checkboxReducer,
-});
 
 const store = configureStore({
     reducer:rootReducer,

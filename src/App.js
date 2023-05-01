@@ -1,4 +1,5 @@
-import React, { useState,useEffect } from 'react'
+import { Provider } from 'react-redux';
+import store from './components/Bucket/Store';
 import Header from './components/Header';
 import Map from './components/Map';
 import Info from './components/Info';
@@ -7,29 +8,14 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './components/main.css';
 
 function App() {
-  const [distName, setDistName]=useState("Hello")
-  useEffect(()=>{
-    setDistName("Test")
-    console.log("component mounted")
-    fetch("https://api.nesdr.gov.in/asdma/flood-low.php")
-    .then(response => {
-      return response.json()
-    })
-    .then(data => {
-      console.log(data)
-    })
-}
-  ,[])
   return (
-    <>
-
+    <Provider store={store}>
       <Header />
       <div className="container">
         <div className="row">
           <div className="col-md-3">
             <LayerTree />
-    <>{distName}</>
-            </div>
+          </div>
           <div className="col-md-6">
             <Map />
           </div>
@@ -38,7 +24,8 @@ function App() {
           </div>
         </div>
       </div>
-    </>    
+    </Provider> 
   );
 }
+
 export default App;

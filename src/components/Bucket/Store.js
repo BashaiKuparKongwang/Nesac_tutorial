@@ -3,6 +3,7 @@ import { produce } from 'immer';
 
 const initialState = {
   selectedDistricts: [],
+  clickedPoints: [],
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -11,13 +12,16 @@ const rootReducer = (state = initialState, action) => {
       case 'SELECTED_DISTRICTS':
         const index = draft.selectedDistricts.indexOf(action.payload);
         if (index === -1) {
-          //if item is check it will add to selectedDistricts
-        draft.selectedDistricts.push(action.payload);
-        } else { 
-          //if item is uncheck it will remove from selectedDistricts
+          draft.selectedDistricts.push(action.payload);
+        } else {
           draft.selectedDistricts.splice(index, 1);
         }
         break;
+        case 'SET_CLICKED_POINT':
+          return {
+            ...state,
+            clickedPoints: [...state.clickedPoints, action.payload],
+          };
       default:
         break;
     }

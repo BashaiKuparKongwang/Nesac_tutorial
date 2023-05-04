@@ -1,31 +1,52 @@
 import React from "react";
-import { MapContainer, TileLayer, WMSTileLayer } from 'react-leaflet'
+import { MapContainer, TileLayer, WMSTileLayer, useMapEvents, LayersControl } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css';
+import { useDispatch } from 'react-redux';
+import { setClickedPoint } from './action';
+import { layers } from "./Config";
 
 const Map = () => {
+  const dispatch = useDispatch();
+
+  function HandleClick() {
+    useMapEvents({
+      click: (e) => {
+        const { lat, lng } = e.latlng;
+        console.log('Clicked!!', lat, lng);
+        dispatch(setClickedPoint({ lat, lng }));
+      },
+    });
+    return null;
+  }
 
   return (
-    <MapContainer center={[26 ,91]} zoom={7.3} scrollWheelZoom={true}>
+    <MapContainer center={[26, 91]} zoom={7.3} scrollWheelZoom={true}>
+      <LayersControl position="topright">
+        {layers.map((layer) =>
+          <LayersControl.Overlay
+            key={layer.id}
+            name={layer.text}
+            checked={layer.show}
+          >
+            <WMSTileLayer
+              url={layer.link}
+              layers={layer.layer}
+              format="image/png"
+              transparent={true}
+            />
+          </LayersControl.Overlay>
+        )}
+      </LayersControl>
+
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
 
-      <WMSTileLayer
-        url="http://localhost:8080/geoserver/ne/wms"
-        layers="meghalaya_district"
-        format="image/png"
-        transparent={true}
-        opacity={0.6}
-        color="red"
-      />
+      <HandleClick />
     </MapContainer>
   );
 };
 
-export default Map;
 
-console.log("WMSTileLayer url: ", <WMSTileLayer url="http://localhost:8080/geoserver/ne/wms" />); // log the url prop
-console.log("WMSTileLayer layers: ", <WMSTileLayer layers="ne%3Ameghalaya_district" />); // log the layers prop
-console.log("WMSTileLayer format: ", <WMSTileLayer format="image/png" />); // log the format prop
-console.log("WMSTileLayer opacity: ", <WMSTileLayer opacity={5} />); // log the opacity prop
+export default Map;

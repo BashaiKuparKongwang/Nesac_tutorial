@@ -89,7 +89,7 @@ export default function CheckboxList() {
                     onChange={handleLayerChanges}
                   />
                 ))}
-              </Form>
+            </Form>
             </td>
           </tr>
         </tbody>

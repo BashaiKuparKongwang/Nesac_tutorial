@@ -3,6 +3,7 @@ import { produce } from 'immer';
 
 const initialState = {
   selectedDistricts: [],
+  selectedLayers: [],
   clickedPoints: [],
 };
 
@@ -15,6 +16,17 @@ const rootReducer = (state = initialState, action) => {
           draft.selectedDistricts.push(action.payload);
         } else {
           draft.selectedDistricts.splice(index, 1);
+        }
+        break;
+        case 'SELECTED_LAYERS':
+        const layerIndex = draft.selectedLayers.findIndex(x => {
+          return x.id === action.payload.id;
+        });
+
+        if (layerIndex === -1) {
+          draft.selectedLayers.push(action.payload);
+        } else {
+          draft.selectedLayers.splice(layerIndex, 1);
         }
         break;
         case 'SET_CLICKED_POINT':

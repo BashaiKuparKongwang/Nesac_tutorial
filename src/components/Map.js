@@ -1,11 +1,11 @@
 import React from "react";
-import { MapContainer, TileLayer, WMSTileLayer, useMapEvents, LayersControl } from 'react-leaflet'
+import { MapContainer, TileLayer, WMSTileLayer, useMapEvents } from 'react-leaflet'
+import { useSelector, useDispatch } from 'react-redux';
 import 'leaflet/dist/leaflet.css';
-import { useDispatch } from 'react-redux';
 import { setClickedPoint } from './action';
-import { layers } from "./Config";
 
 const Map = () => {
+  const selectedLayers = useSelector(state => state.selectedLayers);
   const dispatch = useDispatch();
 
   function HandleClick() {
@@ -21,22 +21,14 @@ const Map = () => {
 
   return (
     <MapContainer center={[26, 91]} zoom={7.3} scrollWheelZoom={true}>
-      <LayersControl position="topright">
-        {layers.map((layer) =>
-          <LayersControl.Overlay
-            key={layer.id}
-            name={layer.text}
-            checked={layer.show}
-          >
-            <WMSTileLayer
-              url={layer.link}
-              layers={layer.layer}
-              format="image/png"
-              transparent={true}
-            />
-          </LayersControl.Overlay>
+       {selectedLayers.map((layer) =>
+          <WMSTileLayer
+          url={layer.link}
+          layers={layer.layer}
+          format="image/png"
+          transparent={true}
+        />
         )}
-      </LayersControl>
 
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

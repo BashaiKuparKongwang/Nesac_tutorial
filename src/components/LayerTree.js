@@ -3,10 +3,14 @@ import { useDispatch } from "react-redux";
 import Form from "react-bootstrap/Form";
 import Dropdown from "react-bootstrap/Dropdown";
 import ListGroup from "react-bootstrap/ListGroup";
+import { layers } from "./Config";
 
 export default function CheckboxList() {
   const [districtList, setDistricts] = useState([]);
+  const [selectedLayers, setSelectedLayers] = useState([]);
+
   const dispatch = useDispatch();
+  
   useEffect(() => {
     fetch("https://api.nesdr.gov.in/asdma/flood-low.php")
       .then((response) => response.json())
@@ -17,7 +21,7 @@ export default function CheckboxList() {
   
   const handleDistrictChange = (e) => {
     const { labels } = e.target;
-    const {innerText} = labels[0];
+    const { innerText } = labels[0];
     const value = innerText;
    
     dispatch({
@@ -25,30 +29,71 @@ export default function CheckboxList() {
       payload: value,
     });
   };
-  
 
+  const handleLayerChanges = (event) => {
+    const { value, checked } = event.target;
+    if (checked) {
+      setSelectedLayers([...selectedLayers, value]);
+    } else {
+      setSelectedLayers(
+        selectedLayers.filter((x) => x != value)
+      );
+    }
+
+    dispatch({
+      type: "SELECTED_LAYERS",
+      payload: layers.find((x) => x.id == value),
+    });
+  };
+  
   return (
     <div style={{ paddingTop: "20px" }}>
-      <Dropdown>
-        <Dropdown.Toggle variant="secondary" id="dropdown-basic">
-          Rivers
-        </Dropdown.Toggle>
-        <Dropdown.Menu>
-          <ListGroup>
-            {districtList.map((district, index) => (
-              <ListGroup.Item key={"district"+index}>
-                <Form.Check
-                  type="checkbox"
-                  id={"district"+index}
-                  label={district.rc_name}
-                  checked={district.selected}
-                  onChange={handleDistrictChange}
-                />
-              </ListGroup.Item>
-            ))}
-          </ListGroup>
-        </Dropdown.Menu>
-      </Dropdown>
+      <table>
+        <tbody>
+          <tr>
+            <td>
+              <Dropdown>
+                <Dropdown.Toggle variant="secondary" id="dropdown-basic">
+                  Rivers
+                </Dropdown.Toggle>
+                <Dropdown.Menu>
+                  <ListGroup>
+                    {districtList.map((district, index) => (
+                      <ListGroup.Item key={"district"+index}>
+                        <Form.Check
+                          type="checkbox"
+                          id={"district"+index}
+                          label={district.rc_name}
+                          checked={district.selected}
+                          onChange={handleDistrictChange}
+                        />
+                      </ListGroup.Item>
+                    ))}
+                  </ListGroup>
+                </Dropdown.Menu>
+              </Dropdown>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <h3>Overlays</h3>
+            <Form>
+                {layers.map((layer) => (
+                  <Form.Check
+                    key={"layer" + layer.id}
+                    type="checkbox"
+                    id={"layer" + layer.id}
+                    label={layer.text}
+                    value={layer.id}
+                    defaultChecked={selectedLayers.includes(layer.id)}
+                    onChange={handleLayerChanges}
+                  />
+                ))}
+              </Form>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   );
 }

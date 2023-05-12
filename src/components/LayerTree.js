@@ -1,99 +1,40 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useDispatch } from "react-redux";
-import Form from "react-bootstrap/Form";
-import Dropdown from "react-bootstrap/Dropdown";
-import ListGroup from "react-bootstrap/ListGroup";
+import { Form } from "react-bootstrap";
+import { setAnalyticsDetails } from "./overlays/layersSlice";
 import { layers } from "./Config";
 
-export default function CheckboxList() {
-  const [districtList, setDistricts] = useState([]);
-  const [selectedLayers, setSelectedLayers] = useState([]);
-
+export default function LayerTree() {
   const dispatch = useDispatch();
-  
-  useEffect(() => {
-    fetch("https://api.nesdr.gov.in/asdma/flood-low.php")
-      .then((response) => response.json())
-      .then((data) => {
-        setDistricts(data);
-      });
-  }, []);
-  
-  const handleDistrictChange = (e) => {
-    const { labels } = e.target;
-    const { innerText } = labels[0];
-    const value = innerText;
-   
-    dispatch({
-      type: "SELECTED_DISTRICTS",
-      payload: value,
-    });
+
+  const handleLayerToggle = (layerId, show, layer) => {
+    console.log("handleLayerToggle called", layerId, show)
+    dispatch(setAnalyticsDetails({ id: layerId, show, layer }));
   };
 
-  const handleLayerChanges = (event) => {
-    const { value, checked } = event.target;
-    if (checked) {
-      setSelectedLayers([...selectedLayers, value]);
-    } else {
-      setSelectedLayers(
-        selectedLayers.filter((x) => x != value)
-      );
-    }
-
-    dispatch({
-      type: "SELECTED_LAYERS",
-      payload: layers.find((x) => x.id == value),
-    });
-  };
-  
   return (
     <div style={{ paddingTop: "20px" }}>
-      <table>
-        <tbody>
-          <tr>
-            <td>
-              <Dropdown>
-                <Dropdown.Toggle variant="secondary" id="dropdown-basic">
-                  Rivers
-                </Dropdown.Toggle>
-                <Dropdown.Menu>
-                  <ListGroup>
-                    {districtList.map((district, index) => (
-                      <ListGroup.Item key={"district"+index}>
-                        <Form.Check
-                          type="checkbox"
-                          id={"district"+index}
-                          label={district.rc_name}
-                          checked={district.selected}
-                          onChange={handleDistrictChange}
-                        />
-                      </ListGroup.Item>
-                    ))}
-                  </ListGroup>
-                </Dropdown.Menu>
-              </Dropdown>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <h3>Overlays</h3>
-            <Form>
-                {layers.map((layer) => (
-                  <Form.Check
-                    key={"layer" + layer.id}
-                    type="checkbox"
-                    id={"layer" + layer.id}
-                    label={layer.text}
-                    value={layer.id}
-                    defaultChecked={selectedLayers.includes(layer.id)}
-                    onChange={handleLayerChanges}
-                  />
-                ))}
-            </Form>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <h3>Overlays</h3>
+      <Form>
+        {layers.map((layer) => (
+          <Form.Check
+            key={layer.id}
+            type="checkbox"
+            id={`layer-${layer.id}`}
+            label={layer.text}
+            defaultChecked={layer.show}
+            onChange={(e) =>
+              
+              handleLayerToggle(
+                layer.id,
+                e.target.checked,
+                e.target.checked ? layer.layer : null
+                
+              )
+            }
+          />
+        ))}
+      </Form>
     </div>
   );
 }

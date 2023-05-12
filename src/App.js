@@ -19,9 +19,9 @@ function App() {
           <div className="col-md-6">
             <Map />
           </div>
-          <div className="col-md-3">
+          {/* <div className="col-md-3">
             <Info />
-          </div>
+          </div> */}
         </div>
       </div>
     </Provider> 

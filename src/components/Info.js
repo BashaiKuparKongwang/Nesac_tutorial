@@ -3,8 +3,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { removeClickedPoint } from './action';
 
 const InfoBox = () => {
-  const selectedDistricts = useSelector(state => state.selectedDistricts);
-  const clickedPoints = useSelector(state => state.clickedPoints);
+  const selectedDistricts = useSelector(state => state.rootReducer.selectedDistricts);
+  const clickedPoints = useSelector(state => state.rootReducer.clickedPoints);
   const dispatch = useDispatch();
 
   const tableStyle = {

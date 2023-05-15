@@ -11,7 +11,7 @@ const layersSlice = createSlice({
         if (action.payload.layer !== undefined) {
           return state.map((layer) =>
             layer.id === action.payload.id
-              ? { ...layer, show: true, layer: action.payload.layer }
+              ? { ...layer, show: !layer.show, layer: action.payload.layer }
               : layer
           );
         } else {

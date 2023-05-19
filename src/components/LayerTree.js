@@ -107,31 +107,6 @@ export default function LayerTree() {
                 </Form>
             </td>
           </tr>
-            
-          <tr>
-           <td>
-              <h3>Villages</h3>
-              <Form>
-                {layers.map((layer) => {
-                  if (layer.id === 6) {
-                    return (
-                      <Form.Check
-                        key={layer.id}
-                        type="checkbox"
-                        id={`village-checkbox-${layer.id}`}
-                        label={layer.text}
-                        value={layer.class}
-                        checked={selectedVillages.includes(layer.class)}
-                        onChange={handleVillageCheckboxChange}
-                      />
-                    );
-                  }
-                  return null;
-                })}
-              </Form>
-            </td>
-        </tr>
-
         </tbody>
       </table>
     </div>

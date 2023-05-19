@@ -1,5 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import overlaylayerReducer from "../overlays/layersSlice";
+import dataReducer from "../overlays/dataSlice";
 import { produce } from 'immer';
 
 const initialState = {
@@ -32,6 +33,7 @@ const rootReducer = (state = initialState, action) => {
 export default configureStore({
   reducer: {
     layer: overlaylayerReducer,
+    data: dataReducer,
     rootReducer: rootReducer
   },
   middleware: (getDefaultMiddleware) => {

@@ -61,16 +61,16 @@ export const layers = [{
     legend: "http://localhost:8080/geoserver/Flood_Meg/wms?service=WMS&version=1.1.0&request=GetMap&layers=Flood_Meg%3Amap%281%29&bbox=89.97438049316406%2C25.410032272338867%2C92.05876922607422%2C25.953760147094727&width=768&height=330&srs=EPSG%3A4326&styles=&format=application/openlayers",
   },
 
-  {
-    id: 6,
-    text: "Village",
-    show: false,
-    class: "Mobile App Survey",
-    layer: "village",
-    link: "/geoserver/Village/wms",
-    identify: false,
-    legend: "http://localhost:8080/geoserver/Village/wms?service=WMS&version=1.1.0&request=GetMap&layers=Village%3Avillage&bbox=89.82666015625%2C25.03827476501465%2C92.76891326904297%2C26.1160831451416&width=768&height=330&srs=EPSG%3A4326&styles=&format=application/openlayers",
-    district: "North Garo Hills",
+  // {
+  //   id: 6,
+  //   text: "Village",
+  //   show: false,
+  //   class: "Mobile App Survey",
+  //   layer: "village",
+  //   link: "/geoserver/Village/wms",
+  //   identify: false,
+  //   legend: "http://localhost:8080/geoserver/Village/wms?service=WMS&version=1.1.0&request=GetMap&layers=Village%3Avillage&bbox=89.82666015625%2C25.03827476501465%2C92.76891326904297%2C26.1160831451416&width=768&height=330&srs=EPSG%3A4326&styles=&format=application/openlayers",
+  //   district: "North Garo Hills",
  
-  },
+  // },
 ]

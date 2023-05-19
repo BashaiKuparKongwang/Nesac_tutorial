@@ -1,10 +1,11 @@
-import React from 'react';
+import React,{useEffect, useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { removeClickedPoint } from './action';
 
 const InfoBox = () => {
   const selectedDistricts = useSelector(state => state.rootReducer.selectedDistricts);
   const clickedPoints = useSelector(state => state.rootReducer.clickedPoints);
+  const [villages, setVillages] =useState()
   const dispatch = useDispatch();
 
   const tableStyle = {
@@ -26,6 +27,29 @@ const InfoBox = () => {
     console.log('Test', index)
     dispatch(removeClickedPoint(index));
   }
+  const handleFetchVillages = (lat, lon) => {
+    const url = `http://localhost/myapi/village_api.php?lat=${lat}&lon=${lon}`;
+
+    fetch(url)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        setVillages(data);
+      })
+      .catch((error) => {
+        console.log('Error:', error);
+      });
+  };
+
+  useEffect(() => {
+    if (clickedPoints.length > 0) {
+      const lastClickedPoint = clickedPoints[clickedPoints.length - 1];
+      const lat = lastClickedPoint.lat;
+      const lon = lastClickedPoint.lng;
+
+      handleFetchVillages(lat, lon);
+    }
+  }, [clickedPoints]);
 
   return (
     <div className="info-box">
@@ -71,6 +95,12 @@ const InfoBox = () => {
           )}
         </tbody>
       </table>
+      <h2>Villages</h2>
+      <ul>
+        {villages!=undefined&&villages.map((village, index) => (
+          <li key={index}>{village.name}</li>
+        ))}
+      </ul>
     </div>
   );
 };

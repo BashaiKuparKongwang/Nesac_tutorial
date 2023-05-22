@@ -11,8 +11,12 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+.ReactModal__Body--open .leaflet-container {
+  filter: none !important;
+}
+  
 .leaflet-container {
     height: 90vh;
     width: 100%;
-    }
-    
+}
+

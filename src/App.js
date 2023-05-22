@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import HomeWrapper from './components/Wrapper/HomeWrapper';
+import ProjectsWrapper from './components/Wrapper/ProjectsWrapper';
 import { Provider } from 'react-redux';
 import store from './components/Bucket/Store';
 import Projects from './components/Projects';
@@ -40,8 +41,8 @@ const App = () => {
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link" to="/contact">
-                    Contact
+                  <Link className="nav-link" to="/megh">
+                    Meghalaya
                   </Link>
                 </li>
               </ul>
@@ -51,7 +52,7 @@ const App = () => {
           <Routes>
             <Route path="/" element={<Projects />} />
             <Route path="/homeWrapper" element={<HomeWrapper />} />
-            <Route path="/contact" element={<Contact />} />
+            <Route path="/megh" element={<ProjectsWrapper />} />
           </Routes>
         </div>
       </Router>

@@ -1,18 +1,19 @@
 import React from "react";
+import Header from "../Header";
 import ProjectsMap from "../ProjectsMap";
 import ProjectsTool from "../../components/Tools/ProjectsTool";
 
 
-const HomeWrapper = () => {
+const ProjectsWrapper = () => {
     return (
         <React.Fragment>
         <Header />
             <div className="container">
                 <div className="row">
-                    <div className="col-md-6">
+                    <div className="col-md-10">
                         <ProjectsMap />
                     </div>
-                    <div className="col-md-6">
+                    <div className="col-md-2">
                         <ProjectsTool />
                     </div>
                 </div>
@@ -20,4 +21,4 @@ const HomeWrapper = () => {
         </React.Fragment>
     )
 }
-export default HomeWrapper;
+export default ProjectsWrapper;

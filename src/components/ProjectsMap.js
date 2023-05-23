@@ -1,3 +1,5 @@
+// ProjectsMap.js
+
 import React, { useState } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import { useSelector } from 'react-redux';
@@ -7,7 +9,7 @@ import '../index.css';
 import * as L from "leaflet";
 import 'leaflet.awesome-markers/dist/leaflet.awesome-markers.css';
 import 'leaflet.awesome-markers/dist/leaflet.awesome-markers.js';
-import ProjectsModal from './Modal/projectsModal';
+import ProjectsInfo from './Tools/ProjectsInfo';
 
 const ProjectsMap = () => {
   const dispatch = useDispatch();
@@ -18,15 +20,10 @@ const ProjectsMap = () => {
     console.log("Data", location);
   };
 
-  const handleCloseModal = () => {
-    setSelectedLocation(null);
-  };
-
-  const filteredData = useSelector(state => state.data.filter(item => item.district === 'West Garo Hills'));
+  const filteredData = useSelector(state => state.data.filter(item => item.uid === 705));
 
   return (
-    <MapContainer center={[26, 91]} zoom={7.3} scrollWheelZoom={true}>
-
+    <MapContainer center={[24.835221431325394, 90.36804199218751]} zoom={7.3} scrollWheelZoom={true}>
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -48,15 +45,9 @@ const ProjectsMap = () => {
           </Popup>
         </Marker>
       ))}
-
-      {/* Modal */}
-      {selectedLocation && (
-        <ProjectsModal
-          isOpen={true}
-          location={selectedLocation}
-          onClose={handleCloseModal}
-        />
-      )}
+      {/* {selectedLocation && (
+        <ProjectsInfo location={selectedLocation} />
+      )} */}
     </MapContainer>
   );
 };

@@ -1,15 +1,12 @@
-// ProjectsMap.js
-
 import React, { useState } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
-import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import 'leaflet/dist/leaflet.css';
 import '../index.css'; 
 import * as L from "leaflet";
 import 'leaflet.awesome-markers/dist/leaflet.awesome-markers.css';
 import 'leaflet.awesome-markers/dist/leaflet.awesome-markers.js';
-import ProjectsInfo from './Tools/ProjectsInfo';
+import { setLocation } from './overlays/villageSlice'; // Import the setLocation action from the villageSlice
 
 const ProjectsMap = () => {
   const dispatch = useDispatch();
@@ -17,6 +14,7 @@ const ProjectsMap = () => {
 
   const handleMarkerClick = (event, location) => {
     setSelectedLocation(location);
+    dispatch(setLocation(location)); // Dispatch the location to the villageSlice using the setLocation action
     console.log("Data", location);
   };
 
@@ -37,6 +35,7 @@ const ProjectsMap = () => {
             click: (event) => handleMarkerClick(event, location)
           }}
         >
+          
           <Popup>
             <h3>{location.state}</h3>
             <p>Sector: {location.sector1}</p>
@@ -45,9 +44,6 @@ const ProjectsMap = () => {
           </Popup>
         </Marker>
       ))}
-      {/* {selectedLocation && (
-        <ProjectsInfo location={selectedLocation} />
-      )} */}
     </MapContainer>
   );
 };

@@ -2,6 +2,9 @@ import { configureStore } from "@reduxjs/toolkit";
 import overlaylayerReducer from "../overlays/layersSlice";
 import dataReducer from "../overlays/dataSlice";
 import { produce } from 'immer';
+import villageReducer from "../overlays/villageSlice"; // Import the villageSlice
+import distanceReducer from "../overlays/distanceSlice"; // Import the villageSlice
+
 
 const initialState = {
   selectedDistricts: [],
@@ -25,15 +28,18 @@ const rootReducer = (state = initialState, action) => {
           ...state,
           clickedPoints: [...state.clickedPoints, action.payload],
         };
-        default:
-          break;
-  }
-});
+      default:
+        break;
+    }
+  });
 };
+
 export default configureStore({
   reducer: {
     layer: overlaylayerReducer,
     data: dataReducer,
+    village: villageReducer, // Include the villageReducer in the store configuration
+    distance: distanceReducer,
     rootReducer: rootReducer
   },
   middleware: (getDefaultMiddleware) => {

@@ -6,7 +6,7 @@ import '../index.css';
 import * as L from "leaflet";
 import 'leaflet.awesome-markers/dist/leaflet.awesome-markers.css';
 import 'leaflet.awesome-markers/dist/leaflet.awesome-markers.js';
-import { setLocation } from './overlays/villageSlice'; // Import the setLocation action from the villageSlice
+import { setLocation } from './overlays/villageSlice';
 
 const ProjectsMap = () => {
   const dispatch = useDispatch();
@@ -14,11 +14,11 @@ const ProjectsMap = () => {
 
   const handleMarkerClick = (event, location) => {
     setSelectedLocation(location);
-    dispatch(setLocation(location)); // Dispatch the location to the villageSlice using the setLocation action
+    dispatch(setLocation(location)); // Dispatch the setLocation action with the location data
     console.log("Data", location);
   };
 
-  const filteredData = useSelector(state => state.data.filter(item => item.uid === 705));
+  const filteredData = useSelector(state => state.data.filter(item => item.district === "West Garo Hills"));
 
   return (
     <MapContainer center={[24.835221431325394, 90.36804199218751]} zoom={7.3} scrollWheelZoom={true}>
@@ -35,7 +35,6 @@ const ProjectsMap = () => {
             click: (event) => handleMarkerClick(event, location)
           }}
         >
-          
           <Popup>
             <h3>{location.state}</h3>
             <p>Sector: {location.sector1}</p>

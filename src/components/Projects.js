@@ -4,6 +4,7 @@ import { selectLayerDataSet } from "./overlays/dataSlice";
 import "../components/Css/projects.css";
 const Projects = () => {
   const data = useSelector(selectLayerDataSet);
+  console.log("Data::", data);
 
   return (
     <div className="projects-container">

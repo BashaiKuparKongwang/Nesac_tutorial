@@ -7,9 +7,8 @@ const ProjectsInfo = () => {
   const filteredData = useSelector(state => state.data.filter(item => item.uid === 705));
   const dispatch = useDispatch();
 
-  const handleDistanceChange = (event) => {
-    const selectedDistance = event.target.value;
-    dispatch(setDistance(selectedDistance));
+  const handleDistanceChange = async(event) => {
+   await dispatch(setDistance(event.target.value));
   };
 
   const tableStyle = {
@@ -34,9 +33,9 @@ const ProjectsInfo = () => {
       <div>
         <label htmlFor="distance">Distance:</label>
         <select id="distance" value={distance} onChange={handleDistanceChange}>
-          <option value="5km">5km</option>
-          <option value="10km">10km</option>
-          <option value="15km">15km</option>
+          <option value="5">5km</option>
+          <option value="10">10km</option>
+          <option value="15">15km</option>
         </select>
       </div>
       <table style={tableStyle}>

@@ -2,7 +2,7 @@ import { createSlice, createSelector } from '@reduxjs/toolkit';
 
 const distanceSlice = createSlice({
   name: 'distance',
-  initialState: '5km',
+  initialState: '5',
   reducers: {
     setDistance: (state, action) => {
       return action.payload;

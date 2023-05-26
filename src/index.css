@@ -20,3 +20,18 @@ code {
     width: 100%;
 }
 
+/* .custom-popup {
+    margin-left: 25px;
+    margin-top: 5px;
+} */
+
+/* .custom-popup {
+  position: absolute;
+  z-index: 1000;
+  background-color: white;
+  padding: 10px;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  transform: translateX(100%);
+} */
+

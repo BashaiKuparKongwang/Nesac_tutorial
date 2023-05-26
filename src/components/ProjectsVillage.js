@@ -29,6 +29,7 @@ import { selectDistanceValue } from './overlays/distanceSlice';
 
     console.log("vills: ",villageData);
     console.log("distance: ",distance);
+    console.log("Villages from Api: ", villages)
 
 
     const handleFetchVillages = (lat, lon,dist) => {
@@ -37,11 +38,11 @@ import { selectDistanceValue } from './overlays/distanceSlice';
         fetch(url)
             .then((response) => response.json())
             .then((data) => {
-                console.log(data);
+                console.log("Data I have",data);
                 setVillages(data);
             })
             .catch((error) => {
-                console.log('Error:', error);
+                console.log('Error ohh:', error);
             });
     };
 
@@ -78,7 +79,7 @@ import { selectDistanceValue } from './overlays/distanceSlice';
                     </thead>
                     <tbody>
                       <ul>
-                        {villages != undefined && villages.map((village, index) => (
+                        {villages !== undefined && villages.map((village, index) => (
                             <li style={thTdStyle} key={index}>{village.name}</li>
                         ))}
                       </ul>

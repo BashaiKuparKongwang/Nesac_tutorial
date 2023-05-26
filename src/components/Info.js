@@ -27,7 +27,7 @@ const InfoBox = () => {
     console.log('Test', index)
     dispatch(removeClickedPoint(index));
   }
-  const handleFetchVillages = (lat, lon) => {
+  const handleFetchVillages = (lat, lon, dist) => {
     const url = `http://localhost/myapi/village_api.php?lat=${lat}&lon=${lon}`;
 
     fetch(url)

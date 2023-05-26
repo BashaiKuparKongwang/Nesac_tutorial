@@ -1,3 +1,5 @@
+// This component should be named markerSlice or 
+
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {

@@ -1,12 +1,15 @@
 import React,{useState,useEffect} from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
-import { useSelector } from 'react-redux';
 import { selectLocation } from './overlays/villageSlice'; // Import the selectLocation selector
 import { selectDistanceValue } from './overlays/distanceSlice';
+import { setStoreVillages } from './overlays/projectVillageSlice';
+
 
   const ProjectsVillage = () => {
-
+    const dispatch = useDispatch();
     const tableStyle = {
       borderCollapse: 'collapse',
       width: '100%',
@@ -27,9 +30,9 @@ import { selectDistanceValue } from './overlays/distanceSlice';
     const villageData = useSelector(selectLocation); // Retrieve the village data from the store using selectLocation selector
     const distance = useSelector(selectDistanceValue);
 
-    console.log("vills: ",villageData);
-    console.log("distance: ",distance);
-    console.log("Villages from Api: ", villages)
+    // console.log("vills: ",villageData);
+    // console.log("distance: ",distance);
+    // console.log("Villages from Api: ", villages)
 
 
     const handleFetchVillages = (lat, lon,dist) => {
@@ -40,6 +43,7 @@ import { selectDistanceValue } from './overlays/distanceSlice';
             .then((data) => {
                 console.log("Data I have",data);
                 setVillages(data);
+                dispatch(setStoreVillages(data));
             })
             .catch((error) => {
                 console.log('Error ohh:', error);

@@ -6,18 +6,19 @@ import { Provider } from 'react-redux';
 import store from './components/Bucket/Store';
 import Projects from './components/Projects';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './App.css';
 
 
 // Components for different pages
-const Home = () => <h2>Home Page</h2>;
-const About = () => <h2>About Page</h2>;
-const Contact = () => <h2>Contact Page</h2>;
+// const Home = () => <h2>Home Page</h2>;
+// const About = () => <h2>About Page</h2>;
+// const Contact = () => <h2>Contact Page</h2>;
 
 const App = () => {
   return (
     <Provider store={store}>
       <Router>
-        <div className="container">
+        <div className="app">
           <nav className="navbar navbar-expand-lg navbar-light bg-light">
             <Link className="navbar-brand" to="/">
               Home

@@ -4,6 +4,7 @@ import dataReducer from "../overlays/dataSlice";
 import { produce } from 'immer';
 import villageReducer from "../overlays/villageSlice"; // Import the villageSlice
 import distanceReducer from "../overlays/distanceSlice"; // Import the villageSlice
+import projectVillageReducer from "../overlays/projectVillageSlice"; // Import the villageSlice
 
 
 const initialState = {
@@ -40,6 +41,7 @@ export default configureStore({
     data: dataReducer,
     village: villageReducer, // Include the villageReducer in the store configuration
     distance: distanceReducer,
+    projectVillage: projectVillageReducer,
     rootReducer: rootReducer
   },
   middleware: (getDefaultMiddleware) => {

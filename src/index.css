@@ -20,6 +20,18 @@ code {
     width: 100%;
 }
 
+.submarker-popup-container {
+  max-width: 200px;
+  font-family: Arial, sans-serif;
+
+}
+
+.submarker-popup-title {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
 /* .custom-popup {
     margin-left: 25px;
     margin-top: 5px;

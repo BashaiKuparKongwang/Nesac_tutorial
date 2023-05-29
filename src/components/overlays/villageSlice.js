@@ -1,4 +1,4 @@
-// This component should be named markerSlice or 
+// This component should be named markerSlice becuase it contains only the data of that specific maker we choose
 
 import { createSlice } from "@reduxjs/toolkit";
 

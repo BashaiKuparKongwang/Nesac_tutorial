@@ -30,13 +30,13 @@ import { setStoreVillages } from './overlays/projectVillageSlice';
     const villageData = useSelector(selectLocation); // Retrieve the village data from the store using selectLocation selector
     const distance = useSelector(selectDistanceValue);
 
-    // console.log("vills: ",villageData);
-    // console.log("distance: ",distance);
-    // console.log("Villages from Api: ", villages)
+    console.log("vills: ",villageData);
+    console.log("distance: ",distance);
+    console.log("Villages from Api: ", villages)
 
 
-    const handleFetchVillages = (lat, lon,dist) => {
-        const url = `http://localhost/myapi/village_api.php?lat=${lat}&lon=${lon}&dist=${dist}`;
+    const handleFetchVillages = (ycoord, xcoord,dist) => {
+        const url = `http://localhost/NerCensus/villageCensus_api.php?xcoord=${xcoord}&ycoord=${ycoord}&dist=${dist}`;
 
         fetch(url)
             .then((response) => response.json())
@@ -70,25 +70,35 @@ import { setStoreVillages } from './overlays/projectVillageSlice';
                     <Card.Title th style={{ ...thTdStyle, ...thStyle }}>Village Distance</Card.Title>
 
                     <ListGroup variant="flush">
-                        <ListGroup.Item>Distance:{distance}</ListGroup.Item>
+                        <ListGroup.Item>Distance: {distance}Km</ListGroup.Item>
                     </ListGroup>
 
                 </Card.Body>
-                <Card.Body style={{ maxHeight: '500px', overflowY: 'scroll'}}>
-                  <table style={tableStyle}>
-                    <thead>
-                      <tr>
-                        <Card.Title th style={{ ...thTdStyle, ...thStyle }}>Village Distance</Card.Title>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <ul>
-                        {villages !== undefined && villages.map((village, index) => (
-                            <li style={thTdStyle} key={index}>{village.name}</li>
-                        ))}
-                      </ul>
-                    </tbody>
-                </table>
+                <Card.Body>
+                <Card.Title th style={{ ...thTdStyle, ...thStyle }}>Villages in range</Card.Title>
+                <div style={{ maxHeight: '300px', overflowY: 'scroll' }}>
+                    <table style={tableStyle}>
+                      <thead>
+                        <tr>
+                          <th style={thTdStyle}>Villages</th>
+                          <th style={thTdStyle}>Total Population</th>
+                          <th style={thTdStyle}>Male Population</th>
+                          <th style={thTdStyle}>Female Population</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                          {villages !== undefined &&
+                            villages.map((village, index) => (
+                              <tr key={index}>
+                                <td style={thTdStyle}>{village.name}</td>
+                                <td style={thTdStyle}>{village.tot_p}</td>
+                                <td style={thTdStyle}>{village.tot_m}</td>
+                                <td style={thTdStyle}>{village.tot_f}</td>
+                              </tr>
+                          ))}
+                      </tbody>
+                  </table>
+                </div>
                 </Card.Body>
             </Card>
         </div>
@@ -96,3 +106,29 @@ import { setStoreVillages } from './overlays/projectVillageSlice';
 };
 
 export default ProjectsVillage;
+  
+
+// if needed use inside the card constructor
+    //     <Card.Body>
+    //     <Card.Title th style={{ ...thTdStyle, ...thStyle }}>Population</Card.Title>
+    //     <table style={tableStyle}>
+    //       <thead>
+    //         <tr>
+    //           <th  colSpan="2">Total Population</th>
+    //         </tr>
+    //       </thead>
+    //       <tbody>
+    //         {/* <tr>
+    //           <td style={thTdStyle} colSpan="2">{villages !== undefined && villages[0].tot_p}</td>
+    //         </tr> */}
+    //         <tr>
+    //           <th style={thStyle}>Male</th>
+    //           <th style={thStyle}>Female</th>
+    //         </tr>
+    //         <tr>
+    //           <td style={thTdStyle}>{villages !== undefined && villages[0].tot_m}</td>
+    //           <td style={thTdStyle}>{villages !== undefined && villages[0].tot_f}</td>
+    //         </tr>
+    //       </tbody>
+    //     </table>
+    //  </Card.Body>

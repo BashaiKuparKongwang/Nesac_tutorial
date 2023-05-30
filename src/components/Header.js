@@ -19,13 +19,13 @@ const Header = () => {
             />
             React Geoportal
           </Navbar.Brand>
-          <Navbar.Collapse className="justify-content-end">
+          {/* <Navbar.Collapse className="justify-content-end">
             <Nav>
               <Nav.Link as={NavLink} to="/projects" activeClassName="active">
                 Projects
               </Nav.Link>
             </Nav>
-          </Navbar.Collapse>
+          </Navbar.Collapse> */}
         </Container>
       </Navbar>
     </>

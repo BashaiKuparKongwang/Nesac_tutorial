@@ -19,6 +19,7 @@ const ProjectsMap = () => {
 
   const handleMarkerClick = (event, location) => {
     setSelectedLocation(location);
+    console.log("Location::", location);
     dispatch(setLocation(location));
     console.log("Data", location);
 

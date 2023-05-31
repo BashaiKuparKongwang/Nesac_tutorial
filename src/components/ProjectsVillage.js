@@ -36,8 +36,7 @@ import { setStoreVillages } from './overlays/projectVillageSlice';
 
 
     const handleFetchVillages = (ycoord, xcoord,dist) => {
-        const url = `http://localhost/NerCensus/villageCensus_api.php?xcoord=${xcoord}&ycoord=${ycoord}&dist=${dist}`;
-
+      const url = `http://localhost/NerCensus/villageCensus_api.php?requestType=villageCensus&xcoord=${xcoord}&ycoord=${ycoord}&dist=${dist}`;
         fetch(url)
             .then((response) => response.json())
             .then((data) => {

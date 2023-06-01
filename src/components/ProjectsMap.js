@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { MapContainer, TileLayer, Marker, Popup, Circle } from 'react-leaflet';
+import React, { useState, useEffect } from "react";
+import { MapContainer, TileLayer, Marker, Popup, Circle, Polyline } from 'react-leaflet';
 import { useSelector, useDispatch } from 'react-redux';
 import 'leaflet/dist/leaflet.css';
 import '../index.css'; 
@@ -13,9 +13,12 @@ import { selectVillages } from './overlays/projectVillageSlice';
 const ProjectsMap = () => {
   const dispatch = useDispatch();
   const [selectedLocation, setSelectedLocation] = useState(null);
+  // const [polygonData, setPolygonData] = useState(null);
   const distance = useSelector(selectDistanceValue);
   const villages = useSelector(selectVillages);
+
   console.log("Villages::", typeof villages);
+  // console.log("Road Polygon::", polygonData);
 
   const handleMarkerClick = (event, location) => {
     setSelectedLocation(location);
@@ -75,6 +78,32 @@ const ProjectsMap = () => {
     ))
   );
   console.log("RenderSubMarkers::", renderSubmarkers);
+      
+  const [polygonData, setPolygonData] = useState(null);
+
+  useEffect(() => {
+    fetch('http://localhost/NerCensus/villageCensus_api.php?requestType=road')
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("API Data:", data); // Log the API response
+        if (Array.isArray(data) && data.length > 0) {
+          const parsedData = JSON.parse(data[0].geom);
+          if (parsedData && parsedData.type === 'LineString' && parsedData.coordinates && parsedData.coordinates.length > 0) {
+            setPolygonData(parsedData.coordinates);
+            console.log("Set Polygon Data:", parsedData.coordinates);
+          } else {
+            console.log("Invalid data format:", parsedData);
+          }
+        } else {
+          console.log("Empty data array");
+        }
+      })
+      .catch((error) => console.error('Error fetching polygon data:', error));
+  }, []);
+
+  useEffect(() => {
+    console.log("Road Data::", polygonData);
+  }, [polygonData]);
 
   return (
     <MapContainer center={[24.33464991442811, 90.4229736328125]} zoom={7.3} scrollWheelZoom={true}>
@@ -107,6 +136,12 @@ const ProjectsMap = () => {
         </Marker>
       ))}
       {renderSubmarkers}
+      {polygonData && (
+        <Polyline
+          positions={polygonData.map(coords => L.latLng(coords[1], coords[0]))}
+          pathOptions={{ color: 'purple' }}
+        />
+)}
     </MapContainer>
   );
 };

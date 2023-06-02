@@ -3,8 +3,9 @@ import overlaylayerReducer from "../overlays/layersSlice";
 import dataReducer from "../overlays/dataSlice";
 import { produce } from 'immer';
 import villageReducer from "../overlays/villageSlice"; // Import the villageSlice
-import distanceReducer from "../overlays/distanceSlice"; // Import the villageSlice
-import projectVillageReducer from "../overlays/projectVillageSlice"; // Import the villageSlice
+import distanceReducer from "../overlays/distanceSlice"; // Import the circle distance
+import polyDistanceReducer from "../overlays/polyDistanceSlice"; // Import the polyline distance
+import projectVillageReducer from "../overlays/projectVillageSlice"; // Import the projectvillageSlice
 
 
 const initialState = {
@@ -41,6 +42,7 @@ export default configureStore({
     data: dataReducer,
     village: villageReducer, // Include the villageReducer in the store configuration
     distance: distanceReducer,
+    polyDistance: polyDistanceReducer,
     projectVillage: projectVillageReducer,
     rootReducer: rootReducer
   },
